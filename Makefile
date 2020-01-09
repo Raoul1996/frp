@@ -1,4 +1,4 @@
-export PATH := $(GOPATH)/bin:$(PATH)
+export PATH := :$(CURDIR)/vendor:$(GOPATH)/bin:$(PATH)
 export GO111MODULE=on
 
 all: fmt build
@@ -13,16 +13,16 @@ file:
 	cp -rf ./web/frpc/dist/* ./assets/frpc/static
 	rm -rf ./assets/frps/statik
 	rm -rf ./assets/frpc/statik
-	go generate ./assets/...
+	go generate -mod vendor ./assets/...
 
 fmt:
 	go fmt ./...
 
 frps:
-	go build -o bin/frps ./cmd/frps
+	go build -mod vendor -o bin/frps ./cmd/frps
 
 frpc:
-	go build -o bin/frpc ./cmd/frpc
+	go build -mod vendor -o bin/frpc ./cmd/frpc
 
 test: gotest
 
@@ -38,7 +38,7 @@ ci:
 	go test -count=1 -p=1 -v ./tests/...
 
 alltest: gotest ci
-	
+
 clean:
 	rm -f ./bin/frpc
 	rm -f ./bin/frps
