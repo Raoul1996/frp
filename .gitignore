@@ -27,6 +27,11 @@ _testmain.go
 bin/
 packages/
 test/bin/
+vendor/
 
 # Cache
 *.swp
+
+# Editor config file
+.idea
+.DS_Store
